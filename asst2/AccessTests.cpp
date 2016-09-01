@@ -61,13 +61,13 @@ void access_tests() {
     {
         // Simple unit vector.
         auto vec = evec::EuclideanVector(4, 1.0).createUnitVector();
-        assertEquals(vec, {0.25, 0.25, 0.25, 0.25});
+        assertEquals(vec, {0.5, 0.5, 0.5, 0.5});
     }
 
     {
         // Unit vector from const.
         const evec::EuclideanVector vec{4.0, 9.0};
-        assertEquals(vec.createUnitVector(), {4.0 / 5.0, 9.0 / 5.0});
+        assertEquals(vec.createUnitVector(), {4.0 / sqrt(97), 9.0 / sqrt(97)});
     }
 
     {
