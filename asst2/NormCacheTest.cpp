@@ -20,12 +20,12 @@ void norm_cache_tests() {
 
 	evec::EuclideanVector e_test{2, 2, 2, 2};
 
-	assert(abs(e_test.getEuclideanNorm() - 4) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
 
 	
 	e_test[3] = 8;
 	// Ensure the norm is recalculated correctly
-	assert(abs(e_test.getEuclideanNorm() - 8.71779788708) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 8.71779788708) < eps);
 
 
 	// Maka a new vector
@@ -36,31 +36,31 @@ void norm_cache_tests() {
 	e_test += e_tmp;
 
 	// Test the norm is still correct
-	assert(abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
 
 
 	e_test *= 2;
 	// Test the norm is still correct
-	assert(abs(e_test.getEuclideanNorm() - 20.7846096908) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 20.7846096908) < eps);
 
 
 	e_test /= 2;
 	// Test the norm is still correct
-	assert(abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
 
 
 	// Copy assign
 	e_test = e_tmp;
 
 	// Test the norm is still correct
-	assert(abs(e_test.getEuclideanNorm() - 2) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 2) < eps);
 
 
 	evec::EuclideanVector e_tmp2{2, 2, 2, 2};
 	
 	// Move assign
 	e_test = std::move(e_tmp2);
-	assert(abs(e_test.getEuclideanNorm() - 4) < eps);
+	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
 
 
 	// Now test the speed of the cache

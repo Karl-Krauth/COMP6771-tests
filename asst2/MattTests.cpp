@@ -28,8 +28,6 @@ void matt_tests() {
     assertEquals(v2, {1, 2, 3});
     v1 = v1;
     assertEquals(v1, {1, 2, 3});
-    v1 = std::move(v1);
-    assertEquals(v1, {1, 2, 3});
     auto stdvec = static_cast<std::vector<double>>(v1);
     assertEquals(v1, stdvec);
     auto stdlist = static_cast<std::list<double>>(v1);
@@ -53,7 +51,6 @@ void matt_tests() {
     v1[0] = 3;
     assert(v1[0] == 3 && v1.get(0) == 3);
     assert(almost_eq(v1.getEuclideanNorm(), sqrt(22)));
-    assert(almost_eq(v1.getEuclideanNorm(), sqrt(14)));
     v1 = vec{3, 4}; // move assignment
     assert((v1 == vec{3, 4}));
     assert(almost_eq(v1.getEuclideanNorm(), 5));
@@ -80,7 +77,7 @@ void matt_tests() {
     v1 = v2; // copy assignment
     assert((v1 == vec{1, 2, 3}));
 
-    auto v3 = std::move(v2 * 2);
+    auto v3 = v2 * 2;
     assert((v3 == vec{2, 4, 6}));
 
     vec v4{std::move(v2)}; // move constructor
