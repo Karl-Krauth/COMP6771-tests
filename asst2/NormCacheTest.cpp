@@ -13,16 +13,16 @@
 // when calling the getEuclideanNorm function many times.
 void norm_cache_tests() {
 
-	const double eps = 10e-6; 
+	const double eps = 10e-6;
 
-	// If a cache is being used the norm needs to be updated if the 
+	// If a cache is being used the norm needs to be updated if the
 	// Contents of the vector has changed
 
 	evec::EuclideanVector e_test{2, 2, 2, 2};
 
 	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
 
-	
+
 	e_test[3] = 8;
 	// Ensure the norm is recalculated correctly
 	assert(std::abs(e_test.getEuclideanNorm() - 8.71779788708) < eps);
@@ -57,18 +57,18 @@ void norm_cache_tests() {
 
 
 	evec::EuclideanVector e_tmp2{2, 2, 2, 2};
-	
+
 	// Move assign
 	e_test = std::move(e_tmp2);
 	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
 
 
 	// Now test the speed of the cache
-	
+
 	// Make a really big evec
 	evec::EuclideanVector e1 (100000);
 
-	
+
 	time_t t = clock();
 
 
@@ -83,9 +83,9 @@ void norm_cache_tests() {
 
 	time_t t2 = clock();
 
-	
+
 	std::vector<double> norm_list;
-	
+
 	for (unsigned int i = 0; i < e1.getNumDimensions(); ++i)
 	{
 		e1[e1.getNumDimensions() - 1 - i] = i;
@@ -94,7 +94,7 @@ void norm_cache_tests() {
 
 	}
 
-	time_t t3 = clock();	
+	time_t t3 = clock();
 
 	// Can print to see the time difference
 	std::cout << "With cache:  " << float(t2 - t)/CLOCKS_PER_SEC << std::endl;

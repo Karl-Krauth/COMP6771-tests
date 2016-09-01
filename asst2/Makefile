@@ -3,7 +3,7 @@ OBJ_FILES := $(CPP_FILES:.cpp=.o)
 
 all: EuclideanVectorTester
 
-EuclideanVectorTester: $(OBJ_FILES) 
+EuclideanVectorTester: $(OBJ_FILES)
 	g++ -fsanitize=address -o $@ $^
 
 %.o: %.cpp
