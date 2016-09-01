@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <iostream>
 #include "EuclideanVector.h"
 
 constexpr double eps = 1e-7;
