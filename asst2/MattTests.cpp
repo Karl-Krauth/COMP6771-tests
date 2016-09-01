@@ -51,7 +51,6 @@ void matt_tests() {
     v1[0] = 3;
     assert(v1[0] == 3 && v1.get(0) == 3);
     assert(almost_eq(v1.getEuclideanNorm(), sqrt(22)));
-    assert(almost_eq(v1.getEuclideanNorm(), sqrt(14)));
     v1 = vec{3, 4}; // move assignment
     assert((v1 == vec{3, 4}));
     assert(almost_eq(v1.getEuclideanNorm(), 5));
