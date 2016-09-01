@@ -76,7 +76,7 @@ void norm_cache_tests() {
 
 	std::vector<double> norm_list_2;
 
-	for (unsigned int i = 0; i < 10000; ++i)
+	for (unsigned int i = 0; i < e1.getNumDimensions(); ++i)
 	{
 		// Check the size using the cache
 		norm_list_2.push_back(e1.getEuclideanNorm());
