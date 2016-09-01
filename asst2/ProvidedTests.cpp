@@ -1,5 +1,7 @@
 #include <cassert>
+#include <list>
 #include <sstream>
+#include <vector>
 
 #include "EuclideanVector.h"
 

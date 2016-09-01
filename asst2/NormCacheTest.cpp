@@ -1,11 +1,13 @@
 #include <iostream>
-#include <vector>
 #include <list>
-#include "EuclideanVector.h"
-#include <time.h>
+#include <vector>
+
+#include <cmath>
+#include <ctime>
+
 #include <assert.h>
 
-
+#include "EuclideanVector.h"
 
 // Test to ensure using a cache for the norm does not break the
 // getEuclideanNorm function.
@@ -20,12 +22,12 @@ void norm_cache_tests() {
 
 	evec::EuclideanVector e_test{2, 2, 2, 2};
 
-	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 4) < eps);
 
 
 	e_test[3] = 8;
 	// Ensure the norm is recalculated correctly
-	assert(std::abs(e_test.getEuclideanNorm() - 8.71779788708) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 8.71779788708) < eps);
 
 
 	// Maka a new vector
@@ -36,31 +38,31 @@ void norm_cache_tests() {
 	e_test += e_tmp;
 
 	// Test the norm is still correct
-	assert(std::abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
 
 
 	e_test *= 2;
 	// Test the norm is still correct
-	assert(std::abs(e_test.getEuclideanNorm() - 20.7846096908) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 20.7846096908) < eps);
 
 
 	e_test /= 2;
 	// Test the norm is still correct
-	assert(std::abs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 10.3923048454) < eps);
 
 
 	// Copy assign
 	e_test = e_tmp;
 
 	// Test the norm is still correct
-	assert(std::abs(e_test.getEuclideanNorm() - 2) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 2) < eps);
 
 
 	evec::EuclideanVector e_tmp2{2, 2, 2, 2};
 
 	// Move assign
 	e_test = std::move(e_tmp2);
-	assert(std::abs(e_test.getEuclideanNorm() - 4) < eps);
+	assert(std::fabs(e_test.getEuclideanNorm() - 4) < eps);
 
 
 	// Now test the speed of the cache
@@ -69,7 +71,7 @@ void norm_cache_tests() {
 	evec::EuclideanVector e1 (100000);
 
 
-	time_t t = clock();
+	std::time_t t = clock();
 
 
 	std::vector<double> norm_list_2;
@@ -81,7 +83,7 @@ void norm_cache_tests() {
 	}
 
 
-	time_t t2 = clock();
+	std::time_t t2 = clock();
 
 
 	std::vector<double> norm_list;
@@ -94,7 +96,7 @@ void norm_cache_tests() {
 
 	}
 
-	time_t t3 = clock();
+	std::time_t t3 = clock();
 
 	// Can print to see the time difference
 	std::cout << "With cache:  " << float(t2 - t)/CLOCKS_PER_SEC << std::endl;
