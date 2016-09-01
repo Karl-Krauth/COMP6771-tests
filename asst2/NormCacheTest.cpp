@@ -66,7 +66,7 @@ void norm_cache_tests() {
 	// Now test the speed of the cache
 	
 	// Make a really big evec
-	evec::EuclideanVector e1 (10000000);
+	evec::EuclideanVector e1 (100000);
 
 	
 	time_t t = clock();
@@ -74,10 +74,10 @@ void norm_cache_tests() {
 
 	std::vector<double> norm_list_2;
 
-	for (unsigned int i = 0; i < 1000000; ++i)
+	for (unsigned int i = 0; i < 10000; ++i)
 	{
 		// Check the size using the cache
-		norm_list_2.push_back(e1.getNumDimensions());
+		norm_list_2.push_back(e1.getEuclideanNorm());
 	}
 
 
@@ -90,16 +90,15 @@ void norm_cache_tests() {
 	{
 		e1[e1.getNumDimensions() - 1 - i] = i;
 		// The norm needs to be re-calculated every time.
-		norm_list.push_back(e1.getNumDimensions());
+		norm_list.push_back(e1.getEuclideanNorm());
 
 	}
 
 	time_t t3 = clock();	
 
 	// Can print to see the time difference
-	//std::cout << "cache " << float(t2 - t)/CLOCKS_PER_SEC << std::endl;
-	//std::cout << "no cache " << float(t3 - t2)/CLOCKS_PER_SEC << std::endl;
-
+	std::cout << "With cache:  " << float(t2 - t)/CLOCKS_PER_SEC << std::endl;
+	std::cout << "Without cache: " << float(t3 - t2)/CLOCKS_PER_SEC << std::endl;
 	// This may not say much about the speed of caching due to optimisations etc...
 	assert((t2 - t) < (t3 - t2));
 

@@ -6,6 +6,7 @@
 #include "MattTests.h"
 #include "NormCacheTest.h"
 #include "AccessTests.h"
+#include "CameronTests.h"
 
 int main(int argc, char *argv[]) {
     std::cout << "Starting test suite.\n";
@@ -33,6 +34,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Running access tests.\n";
     access_tests();
     std::cout << "Passed access tests.\n";
+
+    std::cout << "Running Cameron's tests.\n";
+    cameron_tests();
+    std::cout << "Passed Cameron's tests.\n";
 
     std::cout << "All tests passed.\n";
 
