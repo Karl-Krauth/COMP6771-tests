@@ -23,10 +23,6 @@ int main(int argc, char *argv[]) {
     movecopyoperator_tests();
     std::cout << "Passed move and copy operator tests.\n";
 
-    std::cout << "Testing the norm is cached correctly.\n";
-    norm_cache_tests();
-    std::cout << "Passed norm caching test.\n";
-
     std::cout << "running matt's tests\n";
     matt_tests();
     std::cout << "passed matt's tests\n";
@@ -38,6 +34,11 @@ int main(int argc, char *argv[]) {
     std::cout << "Running Cameron's tests.\n";
     cameron_tests();
     std::cout << "Passed Cameron's tests.\n";
+
+    // make sure these go last because they're slow
+    std::cout << "Testing the norm is cached correctly. This can take several seconds\n";
+    norm_cache_tests();
+    std::cout << "Passed norm caching test.\n";
 
     std::cout << "All tests passed.\n";
 
