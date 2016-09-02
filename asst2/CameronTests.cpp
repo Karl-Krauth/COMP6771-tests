@@ -276,7 +276,7 @@ void cameron_tests() {
         evec::EuclideanVector u = v.createUnitVector();
 
         assert(u.getNumDimensions() == 3);
-        assert(u.getEuclideanNorm() == 1);
+        assert(almost_eq(u.getEuclideanNorm(), 1));
         for (unsigned int i = 0; i < u.getNumDimensions(); ++i) {
             assert(almost_eq(u.get(i), v.get(i) / sqrt(14)));
         }
@@ -284,7 +284,7 @@ void cameron_tests() {
         const evec::EuclideanVector v1{1, 1, 1, 1};
         const evec::EuclideanVector u1 = v1.createUnitVector();
         assert(u1.getNumDimensions() == 4);
-        assert(u1.getEuclideanNorm() == 1);
+        assert(almost_eq(u1.getEuclideanNorm(), 1));
         for (unsigned int i = 0; i < u1.getNumDimensions(); ++i) {
             assert(almost_eq(u1.get(i), v1.get(i) / 2.0));
         }
