@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
+#include <list>
 #include <array>
 
 void craig_tests() {
@@ -53,6 +54,18 @@ void craig_tests() {
         assert((ev2 == ev1));
         assert((ev1 != ev3));
         assert((ev1 == (ev3 / 2.0)));
+
+        auto ev4 = std::move(ev2);
+        assert((ev1 == ev4));
+
+        ev2 = ev4;
+        assert((ev1 == ev2) && (ev2 == ev4));
+
+        evec::EuclideanVector ev5{ 1.0, 1.5, 3.0, 0.0 };
+
+        assert((ev1 != ev5));
+        assert((ev2 != ev5));
+        assert((ev4 != ev5));
     }
 
     // Casting tests
@@ -63,5 +76,24 @@ void craig_tests() {
         assert(almost_eq(vec1[0], ev1[0]));
         assert(almost_eq(vec1[1], ev1[1]));
         assert(almost_eq(vec1[2], ev1[2]));
+
+        auto lst1 = static_cast<std::list<double>>(ev1);
+
+        assert(almost_eq(lst1.front(), ev1[0]));
+        lst1.pop_front();
+        assert(almost_eq(lst1.front(), ev1[1]));
+        lst1.pop_front();
+        assert(almost_eq(lst1.front(), ev1[2]));
+        lst1.pop_front();
+
+        std::vector<double> vec2{ 1.0, 2.0, 3.0, 4.0 };
+        evec::EuclideanVector ev2{ vec2.begin(), vec2.end() };
+
+        assert((vec2 == static_cast<std::vector<double>>(ev2)));
+
+        std::list<double> lst2{ 1.0, 2.0, 3.0, 4.0 };
+        evec::EuclideanVector ev3{ lst2.begin(), lst2.end() };
+
+        assert((lst2 == static_cast<std::list<double>>(ev2)));
     }
 }
