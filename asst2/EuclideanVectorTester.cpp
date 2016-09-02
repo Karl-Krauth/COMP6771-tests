@@ -9,6 +9,7 @@
 #include "AccessTests.h"
 #include "CameronTests.h"
 #include "CraigTests.h"
+#include "DerekTests.h"
 
 int main(int argc, char *argv[]) {
     std::cout << "Starting test suite.\n";
@@ -44,6 +45,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Running Cameron's tests.\n";
     cameron_tests();
     std::cout << "Passed Cameron's tests.\n";
+
+    std::cout << "Running Derek's tests.\n";
+    derek_tests();
+    std::cout << "Passed Derek's tests.\n";
 
     // make sure these go last because they're slow
     std::cout << "Testing the norm is cached correctly. This can take several seconds\n";
