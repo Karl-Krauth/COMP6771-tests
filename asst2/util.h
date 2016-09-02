@@ -2,6 +2,7 @@
 #define UTIL_H
 
 #include <cmath>
+#include <cassert>
 #include <vector>
 #include <iostream>
 #include "EuclideanVector.h"
