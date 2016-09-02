@@ -96,4 +96,21 @@ void craig_tests() {
 
         assert((lst2 == static_cast<std::list<double>>(ev2)));
     }
+
+    // Const vector tests. Spec is completely clear but I think you should be
+    // able to get the normal of a const evec
+    {
+        const evec::EuclideanVector e1{ 3.0, 4.0 };
+
+        assert(almost_eq(e1.getEuclideanNorm(), 5.0));
+        assert((e1.getNumDimensions() == 2));
+        assert(almost_eq(e1[0], 3.0));
+        assert(almost_eq(e1[1], 4.0));
+
+        const auto unitE1 = e1.createUnitVector();
+
+        assert(almost_eq(unitE1.getEuclideanNorm(), 1.0));
+        assert((unitE1.getNumDimensions() == 2));
+
+    }
 }
