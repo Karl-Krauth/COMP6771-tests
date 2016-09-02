@@ -3,6 +3,7 @@
 #include "ConstructorTests.h"
 #include "ProvidedTests.h"
 #include "MoveCopyOperatorTests.h"
+#include "ArithTests.h"
 #include "MattTests.h"
 #include "NormCacheTest.h"
 #include "AccessTests.h"
@@ -23,6 +24,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Running move and copy operator tests.\n";
     movecopyoperator_tests();
     std::cout << "Passed move and copy operator tests.\n";
+
+    std::cout << "Running arithmetic tests.\n";
+    arith_tests();
+    std::cout << "Passed arithmetic tests.\n";
 
     std::cout << "running matt's tests\n";
     matt_tests();
