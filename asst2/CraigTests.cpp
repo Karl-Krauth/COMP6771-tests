@@ -66,6 +66,15 @@ void craig_tests() {
         assert((ev1 != ev5));
         assert((ev2 != ev5));
         assert((ev4 != ev5));
+
+        ev4 = std::move(ev2);
+        assert(ev2 != ev4);
+        assert(!(ev2 == ev4));
+        assert(ev2 == ev2);
+
+        evec::EuclideanVector ev6(0);
+        assert(ev6 != ev5);
+        assert(ev6 == ev6);
     }
 
     // Casting tests
@@ -111,6 +120,9 @@ void craig_tests() {
 
         assert(almost_eq(unitE1.getEuclideanNorm(), 1.0));
         assert((unitE1.getNumDimensions() == 2));
-
+        assert(e1 == e1);
+        assert(!(e1 != e1));
+        assert(static_cast<std::list<double>>(e1) == static_cast<std::list<double>>(e1));
+        assert(static_cast<std::vector<double>>(e1) == static_cast<std::vector<double>>(e1));
     }
 }
