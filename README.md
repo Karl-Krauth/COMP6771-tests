@@ -35,7 +35,13 @@ Note that we assume you only need to test these two files.
 
 Assignment 3
 ============
-Coming soon.
+To contribute please add a seperate .cc file and .h file to the asst3 directory. Then edit
+`GraphTester.cpp` to include your test entrypoint and `#include` your newly defined header file.
+
+To run all tests simply run `test.sh CODE_DIR` from within the asst3 dir, where `CODE_DIR`
+is the directory that contains your `Graph.h` and `Graph.tem` files.
+Note that we assume you only need to test these two files.
+
 Assignment 4
 ============
 Coming soon.
