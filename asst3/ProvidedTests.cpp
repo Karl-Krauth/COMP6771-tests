@@ -30,7 +30,41 @@ void test1() {
     assert(g3.isNode(sp));
 }
 
-const std::vector<std::function<void()>> tests = {test1};
+void test2() {
+    // create 3 graphs
+    gdwg::Graph<int,int> g;
+    g.addNode(1);
+    int i = 2;
+    g.addNode(i);
+    double d = 3.41;
+    g.addNode(static_cast<int>(d));
+    g.addEdge(2,1,3);
+    int j = 3;
+    g.addEdge(i,j,1);
+    assertEdgesEq(g, 2, );
+
+
+    gdwg::Graph<std::string,double> g2{};
+    g2.addNode("Hello");
+    std::string s = "world";
+    g2.addNode(s);
+
+
+    gdwg::Graph<std::shared_ptr<int>,std::string> g3{};
+    std::shared_ptr<int> sp = std::make_shared<int>(5);
+    g3.addNode(sp);
+    g3.addNode(std::make_shared<int>(6));
+
+    g2.addEdge("Hello","world",d);
+
+    g2.printEdges("Hello");
+    g2.printEdges("world");
+
+    std::cout << "Printing nodes in graph g to check print order" << std::endl;
+    g.printNodes();
+}
+
+const std::vector<std::function<void()>> tests = {test1, _mm_testnzc_si128()};
 
 void providedTests() {
     for (auto i = 0U; i < tests.size(); i++) {
