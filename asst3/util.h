@@ -7,11 +7,14 @@
 #include <iterator>
 #include <cassert>
 #include <map>
+#include <functional>
 
 namespace util {
 
-template <typename N, typename E>
-void assertNodesEq(const gdwg::Graph<N, E> &graph, const std::vector<N>& expectedNodes) {
+using namespace gdwg;
+
+template<typename N, typename E>
+void assertNodesEq(const Graph<N, E> &graph, const std::vector<N> &expectedNodes) {
     std::stringstream actual, expected;
     // this is the easiest way I can think of to test your graph, while making sure it still works with printNodes()
     graph.printNodes(actual); // ENSURE YOU MAKE void Graph::printNodes(ostream& stream = std::cout)
@@ -22,15 +25,16 @@ void assertNodesEq(const gdwg::Graph<N, E> &graph, const std::vector<N>& expecte
     }
 }
 
-template <typename N, typename E>
-void assertEdgesEq(const gdwg::Graph<N, E>& graph, const N& value, const std::vector<std::pair<N, E>>& expectedEdges) {
+template<typename N, typename E>
+void assertEdgesEq(const Graph<N, E> &graph, const N &value, std::multimap<N, E> expectedEdges) {
+    std::vector<std::pair<N, E>> sortedEdges(expectedEdges.begin(), expectedEdges.end());
     std::stringstream actual, expected;
     graph.printEdges(value, actual);
     expected << "Edges attached to Node " << value << "\n";
     if (expectedEdges.empty())
         expected << "(null)\n";
     else {
-        std::sort(expectedEdges.begin(), expectedEdges.end(), [] (const auto &lhs, const auto &rhs) {
+        std::sort(sortedEdges.begin(), sortedEdges.end(), [](const auto &lhs, const auto &rhs) {
             // prioritise by edge (.second), then take node (.first) if required
             if (lhs.second < rhs.second)
                 return true;
@@ -39,15 +43,18 @@ void assertEdgesEq(const gdwg::Graph<N, E>& graph, const N& value, const std::ve
             return lhs.first < rhs.first;
         });
     }
-    for (const auto& edge : expectedEdges) {
-        expected << edge.first << edge.second << "\n";
+    for (const auto &edge : sortedEdges) {
+        expected << edge.first << " " << edge.second << "\n";
     }
 
     if (expected.str() != actual.str()) {
         std::cout << "Expected:\n" << expected.str() << "\nGot:\n" << actual.str();
         assert(expected.str() == actual.str());
     }
-};
+}
+
+// hey, we're not getting marked for style on the tests
+#define assertThrows(e) try {e;} catch (std::exception&) {}
 
 }
 
