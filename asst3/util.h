@@ -54,7 +54,7 @@ void assertEdgesEq(const Graph<N, E> &graph, const N &value, std::multimap<N, E>
 }
 
 // hey, we're not getting marked for style on the tests
-#define assertThrows(e) try {e;} catch (std::exception&) {}
+#define assertThrows(e) try {e;assert(false);} catch (std::exception&) {}
 
 }
 
