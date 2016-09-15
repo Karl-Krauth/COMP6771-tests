@@ -1,13 +1,17 @@
-CPP_FILES := $(wildcard *.cpp)
-OBJ_FILES := $(CPP_FILES:.cpp=.o)
+CXX = g++
+CXXFLAGS = -std=c++14 -Wall -Wextra -Werror -O3 -flto
+LDFLAGS = -ldl -O3 -flto
+
+CXXFILES := $(wildcard *.cpp)
+OBJFILES := $(CXXFILES:.cpp=.o)
+
+.PHONY: all clean
 
 all: GraphTester
-
-GraphTester: $(OBJ_FILES)
-	g++ -fsanitize=address -o $@ $^
-
-%.o: %.cpp
-	g++ -std=c++14 -Wall -Werror -O2 -fsanitize=address -c -o $@ $<
-
 clean:
-	rm *o GraphTester 
+	rm -f GraphTester *.o
+
+GraphTester: $(OBJFILES)
+	$(CXX) -o $@ $+ $(LDFLAGS)
+%.o: %.cpp
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
