@@ -95,7 +95,7 @@ void test3() {
     g3.addNode(std::make_shared<int>(6));
     assert(!g3.addNode(sp));
     assert(g3.addNode(std::make_shared<int>(6)));
-    
+
     assertThrows(g.printEdges(5));
 }
 
@@ -200,37 +200,37 @@ void test6 () {
 
 void test7() {
     gdwg::Graph<std::string,int> g;
-    
+
     // add this data into the graph
     assert(g.addNode("a"));
     assert(g.addNode("b"));
     assert(g.addNode("c"));
     assert(g.addNode("d"));
-    
+
     assert(g.addEdge("b","a",3));
     assert(g.addEdge("b","a",5));
     assert(g.addEdge("c","a",3));
-    
+
     assertNodesEq(g, {"a", "d", "c", "b"});
     assertEdgesEq(g, "b"s, {{"a", 3}, {"a", 5}});
     assertEdgesEq(g, "c"s, {{"a", 3}});
-    
+
     g.deleteEdge("b","a",5);
     /*
     g.printEdges("b");
-    
+
     std::cout << "deleting node a" << std::endl;
     g.deleteNode("a");
     g.printEdges("b");
     std::cout << "Graph after node/edge deletion" << std::endl;
     g.printNodes();
-    
+
     try {
         g.deleteNode("a");
     } catch( const std::exception &ex ) {
         std::cout << "exception caught 1" << std::endl;
     }
-    
+
     try {
         g.deleteEdge("c","a",5);
     } catch( const std::exception &ex ) {
@@ -243,28 +243,28 @@ void test8() {
     {
         std::cout << "Testing copy" << std::endl;
         auto gHeap = new gdwg::Graph<std::string,int>{};
-    
+
         // add this data into the graph
         assert(gHeap->addNode("a"));
         assert(gHeap->addNode("b"));
         assert(gHeap->addNode("c"));
         assert(gHeap->addNode("d"));
-        
+
         assert(gHeap->addEdge("b","a",3));
         assert(gHeap->addEdge("b","a",5));
         assert(gHeap->addEdge("b","d",4));
         assert(gHeap->addEdge("c","a",3));
-        
+
         assertNodesEq(*gHeap, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(*gHeap, "b"s, {{"a"s, 3}, {"a"s, 5}, {"d"s, 4}});
-        
+
         auto gHeapCopy = *gHeap;
         gHeap->deleteNode("a");
         assertNodesEq(*gHeap, {"c"s, "d"s, "b"s});
         assertEdgesEq(*gHeap, "b"s, {{"d"s, 4}});
         assertNodesEq(gHeapCopy, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(gHeapCopy, "b"s, {{"a"s, 3}, {"a"s, 5}, {"d"s, 4}});
-        
+
         delete gHeap;
         assertNodesEq(gHeapCopy, {"a"s, "d"s, "c"s, "b"s});
     }
@@ -272,13 +272,13 @@ void test8() {
     {
         std::cout << "Testing move" << std::endl;
         auto gHeap = new gdwg::Graph<std::string,int>{};
-        
+
         // add this data into the graph
         assert(gHeap->addNode("a"));
         assert(gHeap->addNode("b"));
         assert(gHeap->addNode("c"));
         assert(gHeap->addNode("d"));
-        
+
         assert(gHeap->addEdge("b","a",3));
         assert(gHeap->addEdge("b","a",5));
         assert(gHeap->addEdge("b","d",4));
@@ -286,7 +286,7 @@ void test8() {
 
         assertNodesEq(*gHeap, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(*gHeap, "b"s, {{"a"s, 3}, {"d"s, 4}, {"a"s, 5}});
-        
+
         auto gHeapCopy = std::move(*gHeap);
         // We shouldn't use a moved-from object, in general.
         // However, here, for testing purposes, we assumed
@@ -303,24 +303,24 @@ void test9() {
     {
         std::cout << "Testing copy" << std::endl;
         auto gHeap = new gdwg::Graph<std::string,int>{};
-        
+
         // add this data into the graph
         assert(gHeap->addNode("a"));
         assert(gHeap->addNode("b"));
         assert(gHeap->addNode("c"));
         assert(gHeap->addNode("d"));
-        
+
         assert(gHeap->addEdge("b","a",3));
         assert(gHeap->addEdge("b","a",5));
         assert(gHeap->addEdge("c","a",3));
-        
+
         assertNodesEq(*gHeap, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(*gHeap, "b"s, {{"a"s, 3}, {"a"s, 5}});
-        
+
         gdwg::Graph<std::string,int> gHeapCopy;
         gHeapCopy.addNode("z");
         assertNodesEq(gHeapCopy, {"z"s});
-        
+
         gHeapCopy = *gHeap;    // copy assignment
         gHeap->deleteNode("a");
         assertNodesEq(*gHeap, {"b"s, "c"s, "d"s});
@@ -328,7 +328,7 @@ void test9() {
 
         assertNodesEq(gHeapCopy, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(gHeapCopy, "b"s, {{"a"s, 3}, {"a"s, 5}});
-        
+
         delete gHeap;
         assertNodesEq(gHeapCopy, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(gHeapCopy, "b"s, {{"a"s, 3}, {"a"s, 5}});
@@ -337,24 +337,24 @@ void test9() {
     {
         std::cout << "Testing move" << std::endl;
         auto gHeap = new gdwg::Graph<std::string,int>{};
-        
+
         // add this data into the graph
         assert(gHeap->addNode("a"));
         assert(gHeap->addNode("b"));
         assert(gHeap->addNode("c"));
         assert(gHeap->addNode("d"));
-        
+
         assert(gHeap->addEdge("b","a",3));
         assert(gHeap->addEdge("b","a",5));
         assert(gHeap->addEdge("c","a",3));
-        
+
         assertNodesEq(*gHeap, {"a"s, "d"s, "c"s, "b"s});
         assertEdgesEq(*gHeap, "b"s, {{"a"s, 3}, {"a"s, 5}});
-        
+
         gdwg::Graph<std::string,int> gHeapCopy;
         gHeapCopy.addNode("z");
         assertNodesEq(gHeapCopy, {"z"s});
-        
+
         gHeapCopy = std::move(*gHeap);    // move assignment
 
         assertNodesEq(gHeapCopy, {"a"s, "d"s, "c"s, "b"s});
@@ -373,32 +373,32 @@ void test9() {
 
 void test10() {
     gdwg::Graph<std::string,int> gCopy;
-    
+
     // create some data to store as nodes.
     std::string s = "a";
     std::string t = "b";
     std::string u = "c";
-    
+
     // add this data into the graph
     assert(gCopy.addNode(s));
     assert(gCopy.addNode(t));
     assert(gCopy.addNode(u));
-    
+
     assert(gCopy.addEdge(u,t,1));
     assert(gCopy.addEdge(u,t,2));
-    
+
     const auto& constGraph = gCopy;
-    
+
     assert(constGraph.isNode("a"));
     assert(!constGraph.isConnected("a","b"));
     assert(constGraph.isConnected("c","b"));
-    
+
     assertNodesEq(constGraph, {"a"s, "b"s, "c"s});
 }
 
 void test11() {
     gdwg::Graph<unsigned int,std::string> g;
-    
+
     assert(g.addNode(1));
     assert(g.addNode(2));
     assert(g.addNode(3));
@@ -425,7 +425,7 @@ void test11() {
 
 void test12() {
     gdwg::Graph<unsigned int,int> g;
-    
+
     assert(g.addNode(1));
     assert(g.addNode(2));
     assert(g.addNode(3));
@@ -445,7 +445,7 @@ void test12() {
 void test13() {
     // make a graph
     gdwg::Graph<unsigned int,int> g;
-    
+
     assert(g.addNode(1));
     assert(g.addNode(2));
     assert(g.addNode(3));
@@ -460,7 +460,7 @@ void test13() {
     assert(g.addEdge(3,4,34));
 
     unsigned int i = 1;
-    for (g.begin(); !g.end(); g.next(), ++i) 
+    for (g.begin(); !g.end(); g.next(), ++i)
        assert(g.value() == i);
 
     const auto& cg = g;
