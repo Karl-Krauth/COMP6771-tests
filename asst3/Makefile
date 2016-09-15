@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -Wextra -Werror -O3 -flto
-LDFLAGS = -ldl -O3 -flto
+CXXFLAGS = -std=c++14 -Wall -Wextra -Werror -O3
+LDFLAGS = -ldl -O3
 
 CXXFILES := $(wildcard *.cpp)
 OBJFILES := $(CXXFILES:.cpp=.o)

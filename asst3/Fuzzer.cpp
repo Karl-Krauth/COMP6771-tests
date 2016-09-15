@@ -431,10 +431,10 @@ namespace {
         constexpr const size_t ITERATIONS = 10000;
         constexpr const bool CHECK_EQUALITY_EVERY_ITERATION = false;
 
-        constexpr const size_t CREATE_PERCENTAGE = 38;
-        constexpr const size_t COPY_PERCENTAGE = 10;
-        constexpr const size_t QUERY_PERCENTAGE = 20;
-        constexpr const size_t MODIFY_PERCENTAGE = 20;
+        constexpr const size_t CREATE_PERCENTAGE = 43;
+        constexpr const size_t COPY_PERCENTAGE = 5;
+        constexpr const size_t QUERY_PERCENTAGE = 10;
+        constexpr const size_t MODIFY_PERCENTAGE = 30;
         constexpr const size_t DELETE_PERCENTAGE = 10;
         constexpr const size_t CLEAR_PERCENTAGE = 2;
 
@@ -463,7 +463,7 @@ namespace {
         };
         std::vector<Graph> graphs(1);
 
-        std::uniform_real_distribution<double> valueDistDist(0, 1);
+        std::uniform_real_distribution<double> valueDistDist(0, 0.5);
         std::uniform_int_distribution<Unhashable::BaseValueType> valueDist(0, ITERATIONS * valueDistDist(_rng));
 
         std::uniform_int_distribution<size_t> actionDist(0, 99);
@@ -475,7 +475,7 @@ namespace {
             size_t action = actionDist(_rng);
             try {
                 if (action < CREATE_PERCENTAGE) {
-                    if (action < CREATE_PERCENTAGE / 2) {
+                    if (action < CREATE_PERCENTAGE / 4) {
                         action = 0;
                         _testAddNode(graph.gdwgGraph, graph.slowGraph, valueDist);
                     } else {
@@ -538,12 +538,19 @@ namespace {
                 }
                 action -= MODIFY_PERCENTAGE;
 
+                try {
+                    _checkEquality(graph.gdwgGraph, graph.slowGraph);
+                }  catch (...) {
+                    action = 12;
+                    throw;
+                }
+
                 if (action < DELETE_PERCENTAGE) {
-                    if (action < DELETE_PERCENTAGE / 2) {
-                        action = 12;
+                    if (action < DELETE_PERCENTAGE / 4) {
+                        action = 13;
                         _testDeleteNode(graph.gdwgGraph, graph.slowGraph, valueDist);
                     } else {
-                        action = 13;
+                        action = 14;
                         _testDeleteEdge(graph.gdwgGraph, graph.slowGraph, valueDist);
                     }
                     goto next;
@@ -551,7 +558,7 @@ namespace {
                 action -= DELETE_PERCENTAGE;
 
                 if (action < CLEAR_PERCENTAGE) {
-                    action = 14;
+                    action = 15;
                     _testClear(graph.gdwgGraph, graph.slowGraph, valueDist);
                     goto next;
                 }
@@ -611,7 +618,7 @@ void* malloc(size_t size) noexcept {
 }
 
 void fuzzer() {
-    constexpr const size_t LOOPS = 10;
+    constexpr const size_t LOOPS = 100;
 
     auto seed = std::random_device()();
     std::cerr << "Seeding fuzzer with " << seed << "\n";
