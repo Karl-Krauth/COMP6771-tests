@@ -1,5 +1,6 @@
 #include "ProvidedTests.h"
 #include <cassert>
+#include <unordered_set>
 #include <vector>
 #include "Graph.h"
 #include "util.h"
@@ -459,14 +460,18 @@ void test13() {
     assert(g.addEdge(3,1,31));
     assert(g.addEdge(3,4,34));
 
-    unsigned int i = 1;
-    for (g.begin(); !g.end(); g.next(), ++i)
-       assert(g.value() == i);
+    std::unordered_set<unsigned int> nodes;
+    for (g.begin(); !g.end(); g.next())
+        assert(nodes.insert(g.value()).second);
+    for (unsigned int i = 1; i <= 4; ++i)
+       assert(nodes.count(i) > 0);
 
     const auto& cg = g;
-    i = 1;
-    for (cg.begin(); !cg.end(); cg.next(), ++i)
-       assert(g.value() == i);
+    nodes.clear();
+    for (cg.begin(); !cg.end(); cg.next())
+        assert(nodes.insert(cg.value()).second);
+    for (unsigned int i = 1; i <= 4; ++i)
+       assert(nodes.count(i) > 0);
 }
 
 const std::vector<std::function<void()>> tests = {test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13};
