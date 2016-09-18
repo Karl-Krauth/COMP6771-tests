@@ -18,9 +18,13 @@ using namespace gdwg;
 template<typename N, typename E>
 void assertNodesEq(const Graph<N, E> &graph, const std::vector<N> &expectedNodes) {
     std::stringstream actual, expected;
+    auto cout_buf = std::cout.rdbuf();
+    std::cout.rdbuf(actual.rdbuf());
     // this is the easiest way I can think of to test your graph, while making sure it still works with printNodes()
-    graph.printNodes(actual); // ENSURE YOU MAKE void Graph::printNodes(ostream& stream = std::cout)
+    graph.printNodes(); // ENSURE YOU MAKE void Graph::printNodes(ostream& stream = std::cout)
     std::copy(expectedNodes.begin(), expectedNodes.end(), std::ostream_iterator<N>(expected, "\n"));
+
+    std::cout.rdbuf(cout_buf);
     if (expected.str() != actual.str()) {
         std::cout << "Expected:\n" << expected.str() << "\nGot:\n" << actual.str();
         assert(expected.str() == actual.str());
@@ -31,7 +35,10 @@ template<typename N, typename E>
 void assertEdgesEq(const Graph<N, E> &graph, const N &value, std::multimap<N, E> expectedEdges) {
     std::vector<std::pair<N, E>> sortedEdges(expectedEdges.begin(), expectedEdges.end());
     std::stringstream actual, expected;
-    graph.printEdges(value, actual);
+    auto cout_buf = std::cout.rdbuf();
+    std::cout.rdbuf(actual.rdbuf());
+
+    graph.printEdges(value);
     expected << "Edges attached to Node " << value << "\n";
     if (expectedEdges.empty())
         expected << "(null)\n";
@@ -49,6 +56,7 @@ void assertEdgesEq(const Graph<N, E> &graph, const N &value, std::multimap<N, E>
         expected << edge.first << " " << edge.second << "\n";
     }
 
+    std::cout.rdbuf(cout_buf);
     if (expected.str() != actual.str()) {
         std::cout << "Expected:\n" << expected.str() << "\nGot:\n" << actual.str();
         assert(expected.str() == actual.str());
