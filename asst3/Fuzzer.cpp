@@ -1,3 +1,4 @@
+#include <cassert>
 #include <deque>
 #include <iostream>
 #include <fstream>
@@ -25,9 +26,6 @@ namespace {
         decltype(std::declval<std::hash<T>>()(std::declval<T>())),
         decltype(std::declval<T>() == std::declval<T>())
     >> : std::true_type {};
-
-    template <typename T>
-    constexpr bool is_hashable_v = is_hashable<T>::value;
 
     struct Unhashable {
         using BaseValueType = size_t;
@@ -105,10 +103,6 @@ namespace std {
 }
 
 namespace {
-    static_assert(is_hashable_v<Unhashable> == false, "Unhashable is hashable???");
-    static_assert(is_hashable_v<Hashable> == true, "Hashable is unhashable???");
-    static_assert(is_hashable_v<int> == true, "int is unhashable???");
-
     std::mt19937 _rng;
     bool _inFuzzer;
     bool _enableFailingMalloc;
