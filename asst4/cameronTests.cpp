@@ -1,3 +1,4 @@
+#include "suite.h"
 #include "btree.h"
 
 #include <vector>
@@ -31,7 +32,7 @@ void assertEqual(const btree<T>& tree, std::vector<T> expectedPrint) {
         }
 
         std::sort(expectedPrint.begin(), expectedPrint.end());
-        
+
         // Testing constant iterator same
         {
             auto t = tree.cbegin();
@@ -100,7 +101,7 @@ void assertEqual(const btree<T>& tree, std::vector<T> expectedPrint) {
         }
 
         std::sort(expected_non_const.begin(), expected_non_const.end());
-        
+
         // Testing constant iterator same
         {
             auto t = tree_nonconst.cbegin();
@@ -148,7 +149,7 @@ void assertEqual(const btree<T>& tree, std::vector<T> expectedPrint) {
     }
 }
 
-int main() {
+void cameronTests() {
     std::cout << "Testing basic insertion" << std::endl;
     {
         btree<int> testContainer(4);
