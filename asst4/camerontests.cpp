@@ -365,9 +365,8 @@ int main() {
 
         iter = testContainer.find(100);
         assert(iter == testContainer.end());
-        assert(iter == testContainer.cend());
 
-        const auto const_iter = testContainer.find(100);
+        typename btree<int>::const_iterator const_iter = testContainer.find(100);
         assert(const_iter == testContainer.end());
         assert(const_iter == testContainer.cend());
     }
@@ -397,9 +396,9 @@ int main() {
         assert(iter == const_tree.end());
         assert(iter == const_tree.cend());
 
-        const auto const_iter = testContainer.find(100);
+        typename btree<int>::const_iterator const_iter = testContainer.find(100);
         assert(const_iter == testContainer.end());
-        assert(const_iter == testContainer.cend());
+        assert(const_iter == testContainer.cend());;
     }
 
     std::cout << "Testing for each loop compatability" << std::endl;
