@@ -50,9 +50,10 @@ void runTests(std::function<T()> generator, size_t nOps, size_t max) {
         }},
         {20, [&]() { getSim() = getSim(); }},
         {10, [&]() {
-            auto &sim = getSim();
-            sim = std::move(getSim());
-            s[last].assertEmpty();
+            auto base = randint<>() % s.size();
+            auto add = randint<>() % (s.size() - 1) + 1;
+            s[base] = std::move(s[(base + add) % s.size()]);
+            s[(base + add) % s.size()].assertEmpty();
         }},
 
         // normal operations
