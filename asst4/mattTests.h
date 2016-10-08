@@ -2,6 +2,7 @@
 #define BTREE_INSERTTESTER_H
 
 #include <functional>
+#include <random>
 #include <set>
 #include <utility>
 #include <limits>
@@ -18,7 +19,7 @@ template<unsigned int min = 0, unsigned int max = std::numeric_limits<unsigned i
 unsigned int randint() {
     static auto dist = std::uniform_int_distribution<unsigned int>(min, max);
     return dist(*rng);
-};
+}
 
 std::vector<std::function<void()>> makeFns(std::vector<std::pair<unsigned int, std::function<void()>>> fns) {
     std::vector<std::function<void()>> out;
